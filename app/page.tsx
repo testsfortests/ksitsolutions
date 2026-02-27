@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 // ─── Toggle Flag ───────────────────────────────────────────────────────────────
 const showSuccessStats = true;
@@ -41,25 +42,79 @@ const testimonials = [
 
 const pricingPlans = [
   {
-    tier: "🥉",
-    name: "Starter",
-    price: "₹2,499",
+    icon: "🌐",
+    name: "Basic",
+    subtitle: "1 Page Website",
+    tagline: "Perfect for small businesses & personal branding",
+    websiteCost: "₹1,499",
+    domainCost: "₹1,000",
+    totalFirst: "₹2,499",
+    maintenance: "₹1,499 / year",
     popular: false,
-    features: ["Static Website", "3–5 Pages", "Mobile Responsive", "Basic Design", "1 Month Support"],
+    color: "#06b6d4",
+    features: [
+      "Lifetime Support",
+      "Mobile Responsive Design",
+      "Static Website",
+      "WhatsApp Chat Integration",
+      "Call Button Integration",
+    ],
   },
   {
-    tier: "🥈",
-    name: "Business",
-    price: "₹7,999",
+    icon: "🌐",
+    name: "Standard",
+    subtitle: "Business Website (3–5 Pages)",
+    tagline: "Best for growing businesses & institutes",
+    websiteCost: "₹2,499",
+    domainCost: "₹1,000",
+    totalFirst: "₹3,499",
+    maintenance: "₹2,499 / year",
     popular: true,
-    features: ["Dynamic Website", "Admin Panel", "SEO Friendly", "WhatsApp Integration", "3 Month Support"],
+    color: "#3b82f6",
+    features: [
+      "Everything in Basic Plan",
+      "Admin Panel Access",
+      "SEO Friendly Structure",
+      "Dynamic Website",
+      "Contact / Feedback Form",
+    ],
   },
   {
-    tier: "🥇",
-    name: "Premium",
-    price: "₹19,999",
+    icon: "🛒",
+    name: "E-Commerce",
+    subtitle: "Online Store Website",
+    tagline: "Ideal for online stores & product selling businesses",
+    websiteCost: "₹4,999",
+    domainCost: "₹1,000",
+    totalFirst: "₹5,999",
+    maintenance: "₹4,999 / year",
     popular: false,
-    features: ["Web App / Custom Software", "Advanced Features", "Database Integration", "Full Customization", "6 Month Support"],
+    color: "#f59e0b",
+    features: [
+      "Database Integration",
+      "Full Customization",
+      "Product Management System",
+      "Order Management",
+      "Secure Admin Panel",
+    ],
+  },
+  {
+    icon: "📱",
+    name: "Mobile App",
+    subtitle: "Android Application",
+    tagline: "Android Application for your business",
+    websiteCost: "₹9,999",
+    domainCost: "₹1,000",
+    totalFirst: "₹10,999",
+    maintenance: "₹9,999 / year",
+    popular: false,
+    color: "#a855f7",
+    features: [
+      "Custom Mobile App",
+      "Admin Panel",
+      "Database Integration",
+      "Full Support",
+    ],
   },
 ];
 
@@ -292,14 +347,8 @@ export default function KSITSolutions() {
       }}>
         {/* Logo */}
         <div style={{ display: "flex", alignItems: "center", gap: 12, cursor: "pointer" }} onClick={() => scrollTo("home")}>
-          <div style={{
-            width: 42, height: 42, borderRadius: 10, overflow: "hidden",
-            background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontWeight: 800, fontSize: 18, color: "#fff", letterSpacing: -1,
-            flexShrink: 0,
-          }}>
-            KS
+          <div style={{ width: 42, height: 42, borderRadius: 10, overflow: "hidden", flexShrink: 0, position: "relative" }}>
+            <Image src="/logo.jpg" alt="KS IT Solutions Logo" fill style={{ objectFit: "cover" }} priority />
           </div>
           <div>
             <div style={{ fontWeight: 800, fontSize: 17, letterSpacing: -0.5, color: "#fff" }}>KS IT Solutions</div>
@@ -379,7 +428,7 @@ export default function KSITSolutions() {
 
           {/* Trust bar */}
           <div style={{ marginTop: 64, display: "flex", gap: 32, justifyContent: "center", flexWrap: "wrap" }}>
-            {["⚡ 5-Day Delivery", "🔒 100% Secure", "💯 Client Satisfaction", "🇮🇳 Made in India"].map(t => (
+            {["⚡ 5-15 Days Delivery", "🔒 100% Secure", "💯 Client Satisfaction", "🇮🇳 Made in India"].map(t => (
               <div key={t} style={{ fontSize: 13, color: "#64748b", fontWeight: 500 }}>{t}</div>
             ))}
           </div>
@@ -476,45 +525,100 @@ export default function KSITSolutions() {
 
       {/* ── PRICING ── */}
       <section id="pricing" style={{ padding: "100px 5%", background: "rgba(10,22,40,0.6)", position: "relative" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 60 }}>
             <div className="badge" style={{ marginBottom: 16 }}>Transparent Pricing</div>
             <h2 className="section-title">Simple, Affordable Plans</h2>
-            <p style={{ color: "#64748b", marginTop: 16, fontSize: 17 }}>No hidden costs. Pay only for what you need.</p>
+            <p style={{ color: "#64748b", marginTop: 16, fontSize: 17 }}>No hidden costs. Domain included in 1st year total.</p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 24, alignItems: "start" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24, alignItems: "start" }}>
             {pricingPlans.map((plan, i) => (
-              <div key={i} className={`pricing-card${plan.popular ? " popular" : ""}`} style={{ marginTop: plan.popular ? 0 : 24 }}>
+              <div key={i} className="pricing-card" style={{
+                background: plan.popular
+                  ? `linear-gradient(160deg, rgba(29,78,216,0.25), rgba(109,40,217,0.2))`
+                  : "rgba(15,31,61,0.8)",
+                border: `1px solid ${plan.popular ? plan.color : "rgba(59,130,246,0.2)"}`,
+                borderRadius: 24, padding: "32px 26px", position: "relative",
+                backdropFilter: "blur(12px)", transition: "all 0.3s",
+                boxShadow: plan.popular ? `0 0 40px ${plan.color}30` : "none",
+              }}>
                 {plan.popular && (
                   <div style={{
                     position: "absolute", top: -16, left: "50%", transform: "translateX(-50%)",
-                    background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+                    background: `linear-gradient(135deg, ${plan.color}, #8b5cf6)`,
                     borderRadius: 999, padding: "6px 20px",
-                    fontSize: 12, fontWeight: 700, color: "#fff", letterSpacing: 0.5, whiteSpace: "nowrap",
+                    fontSize: 11, fontWeight: 700, color: "#fff", letterSpacing: 1, whiteSpace: "nowrap",
                   }}>⭐ MOST POPULAR</div>
                 )}
 
-                <div style={{ fontSize: 36, marginBottom: 8 }}>{plan.tier}</div>
-                <h3 style={{ fontSize: 24, fontWeight: 800, color: "#f1f5f9", marginBottom: 4 }}>{plan.name}</h3>
-                <div style={{ fontSize: "clamp(32px, 5vw, 44px)", fontWeight: 800, color: plan.popular ? "#3b82f6" : "#f1f5f9", fontFamily: "'Space Mono', monospace", margin: "16px 0" }}>
-                  {plan.price}
-                </div>
-                <p style={{ color: "#64748b", fontSize: 12, marginBottom: 28 }}>Starting price · GST extra</p>
-
-                <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
-                  {plan.features.map((f, j) => (
-                    <div key={j} className="check-item" style={{ color: "#cbd5e1", fontSize: 15 }}>{f}</div>
-                  ))}
+                {/* Header */}
+                <div style={{ marginBottom: 20 }}>
+                  <div style={{ fontSize: 36, marginBottom: 8 }}>{plan.icon}</div>
+                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: plan.color, marginBottom: 4 }}>Plan {i + 1}</div>
+                  <h3 style={{ fontSize: 22, fontWeight: 800, color: "#f1f5f9", marginBottom: 4 }}>{plan.name}</h3>
+                  <div style={{ fontSize: 13, color: "#64748b", fontStyle: "italic" }}>{plan.subtitle}</div>
                 </div>
 
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" style={{ display: "block" }}>
-                  <button className={plan.popular ? "btn-primary" : "btn-ghost"} style={{ width: "100%", padding: "14px" }}>
+                <p style={{ fontSize: 13, color: "#94a3b8", marginBottom: 24, lineHeight: 1.6, padding: "10px 14px", background: `${plan.color}10`, borderRadius: 10, borderLeft: `3px solid ${plan.color}` }}>
+                  {plan.tagline}
+                </p>
+
+                {/* Pricing breakdown */}
+                <div style={{ background: "rgba(0,0,0,0.3)", borderRadius: 14, padding: "18px 16px", marginBottom: 24 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8, fontSize: 14 }}>
+                    <span style={{ color: "#64748b" }}>Website / App Cost</span>
+                    <span style={{ color: "#e2e8f0", fontWeight: 600 }}>{plan.websiteCost}</span>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12, fontSize: 14 }}>
+                    <span style={{ color: "#64748b" }}>Domain / Server Cost</span>
+                    <span style={{ color: "#e2e8f0", fontWeight: 600 }}>{plan.domainCost}</span>
+                  </div>
+                  <div style={{ borderTop: `1px solid ${plan.color}40`, paddingTop: 12, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <span style={{ color: "#94a3b8", fontSize: 13, fontWeight: 600 }}>Total (1st Year)</span>
+                    <span style={{ color: plan.color, fontWeight: 800, fontSize: 22, fontFamily: "'Space Mono', monospace" }}>{plan.totalFirst}</span>
+                  </div>
+                  <div style={{ marginTop: 8, display: "flex", justifyContent: "space-between", fontSize: 12 }}>
+                    <span style={{ color: "#475569" }}>From 2nd year onwards</span>
+                    <span style={{ color: "#64748b", fontWeight: 600 }}>{plan.maintenance}</span>
+                  </div>
+                </div>
+
+                {/* Features */}
+                <div style={{ marginBottom: 28 }}>
+                  <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "#64748b", marginBottom: 14 }}>✅ Includes</div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                    {plan.features.map((f, j) => (
+                      <div key={j} style={{ display: "flex", alignItems: "flex-start", gap: 8, color: "#cbd5e1", fontSize: 14 }}>
+                        <span style={{ color: plan.color, fontWeight: 700, flexShrink: 0, marginTop: 1 }}>✓</span>
+                        <span>{f}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hi%20KS%20IT%20Solutions%2C%20I%27m%20interested%20in%20your%20${encodeURIComponent(plan.name)}%20Plan!`} target="_blank" rel="noopener noreferrer" style={{ display: "block" }}>
+                  <button style={{
+                    width: "100%", padding: "14px",
+                    background: plan.popular ? `linear-gradient(135deg, ${plan.color}, #8b5cf6)` : "rgba(255,255,255,0.06)",
+                    border: plan.popular ? "none" : `1px solid ${plan.color}50`,
+                    borderRadius: 12, color: "#fff", cursor: "pointer",
+                    fontFamily: "'Sora', sans-serif", fontSize: 14, fontWeight: 700,
+                    transition: "all 0.3s",
+                    boxShadow: plan.popular ? `0 4px 20px ${plan.color}40` : "none",
+                  }}>
                     💬 Contact on WhatsApp
                   </button>
                 </a>
               </div>
             ))}
+          </div>
+
+          {/* Note */}
+          <div style={{ textAlign: "center", marginTop: 40, padding: "16px 24px", background: "rgba(59,130,246,0.06)", border: "1px solid rgba(59,130,246,0.15)", borderRadius: 14, display: "inline-block", width: "100%" }}>
+            <p style={{ color: "#64748b", fontSize: 14 }}>
+              💡 All prices are starting rates. Final cost may vary based on project requirements. &nbsp;|&nbsp; GST applicable as per government norms.
+            </p>
           </div>
         </div>
       </section>
@@ -589,12 +693,9 @@ export default function KSITSolutions() {
             {/* Brand */}
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-                <div style={{
-                  width: 44, height: 44, borderRadius: 10, overflow: "hidden",
-                  background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontWeight: 800, fontSize: 18, color: "#fff",
-                }}>KS</div>
+                <div style={{ width: 44, height: 44, borderRadius: 10, overflow: "hidden", flexShrink: 0, position: "relative" }}>
+                  <Image src="/logo.jpg" alt="KS IT Solutions Logo" fill style={{ objectFit: "cover" }} />
+                </div>
                 <div>
                   <div style={{ fontWeight: 800, fontSize: 17, color: "#fff" }}>KS IT Solutions</div>
                   <div style={{ fontSize: 10, color: "#475569", letterSpacing: 1, textTransform: "uppercase" }}>Digital Agency</div>
